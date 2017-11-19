@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: "de.mannodermaus.android-junit5"
 
 android {
     compileSdkVersion 26
@@ -16,19 +17,30 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    testImplementation 'junit:junit:4.12'
+
+    /* Apache commons lang3 - used for StringBuilder, HashcodeBuilder, and so on */
+    compile "org.apache.commons:commons-lang3:$commons_lang3_version"
+
+    /* Joda time for android for date handling */
+    compile "net.danlew:android.joda:${joda_time_version}"
+
+    compile("com.squareup.retrofit2:retrofit:${retrofit2_version}")
+    compile("com.squareup.retrofit2:converter-gson:${retrofit2_version}")
+
+    /* JUnit 5 */
+    testImplementation junit5()
+    testCompileOnly junit5EmbeddedRuntime()
+
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    // Required for local unit tests (JUnit 4 framework)
-    testCompile 'junit:junit:4.12'
-
-    // Required for instrumented tests
-    androidTestCompile 'com.android.support:support-annotations:26.1.0'
-    androidTestCompile 'com.android.support.test:runner:1.0.1'
 }
