@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">07-composite-observer</string>
+    <string name="app_name">MensaMeals</string>
+
+    <string-array name="mealItems">
+        <item>Tagessuppe</item>
+        <item>Dessert</item>
+    </string-array>
+
+    <string-array name="mealDescriptions"></string-array>
 </resources>
